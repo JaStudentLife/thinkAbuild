@@ -1,0 +1,79 @@
+{
+  "name": "thinkabuild",
+  "productName": "thinkAbuild",
+  "version": "1.0.0",
+  "description": "3D structural sandbox: draw shapes, pick real materials and watch real material science decide whether it stands or collapses.",
+  "main": "electron/main.cjs",
+  "type": "module",
+  "author": "thinkAbuild",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "app": "vite build && electron .",
+    "app:dev": "node scripts/dev.mjs",
+    "dist": "vite build && electron-builder --win",
+    "pack": "vite build && electron-builder --win dir",
+    "icon": "node scripts/make-icon.cjs"
+  },
+  "build": {
+    "appId": "com.thinkabuild.app",
+    "productName": "thinkAbuild",
+    "copyright": "thinkAbuild",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "electronDist": "node_modules/electron/dist",
+    "electronVersion": "45.5.0",
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "thinkAbuild",
+      "artifactName": "thinkAbuild-Setup-${version}.exe"
+    },
+    "portable": {
+      "artifactName": "thinkAbuild-Portable-${version}.exe"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/three": "^0.187.0",
+    "electron": "^45.5.0",
+    "electron-builder": "^26.18.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1",
+    "@dimforge/rapier3d-compat": "^0.21.0",
+    "three": "^0.187.0"
+  }
+}
